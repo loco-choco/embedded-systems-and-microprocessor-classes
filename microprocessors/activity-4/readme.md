@@ -74,7 +74,8 @@ end
 
 Simulando no EdSim51, o tempo gasto em cada linha de instrução foi os na tabela a seguir:
 
-|-------------------|------|
+|    Instrucao      | tempo|
+|:-----------------:|:----:|
 | mov A, #12h       | 1 us |
 | mov A, #00h       | 1 us |
 | mov R0, #34h      | 1 us |
