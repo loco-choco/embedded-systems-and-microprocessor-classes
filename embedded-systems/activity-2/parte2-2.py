@@ -20,8 +20,10 @@ val = 50
 pwm_led.start(val)
 try:
     while True:
+        # A partir do valor de distancia, gerar uma porcentagem entre max_dist e min_dist
         val = 100 * (max(min_dist, min(max_dist, sensor.distance)) - min_dist)/ (max_dist - min_dist)
         print(f'\r {abs(100 - val)}%                                                                ',end='')
+        # A partir dessa porcentagem, ter o LED acender com intencidade de forma que, quanto mais perto (100%), menos intenso
         pwm_led.ChangeDutyCycle(abs(100 - val))
 except KeyboardInterrupt:
     print()

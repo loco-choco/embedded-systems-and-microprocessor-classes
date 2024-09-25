@@ -4,7 +4,9 @@ import sys
 import threading
 from time import sleep
 
+# Indica para pausar a tarefa
 parar = False
+# Indica para encerrar a tarefa
 terminar = False
 def tarefa(pwm_led, terminar_mutex, parar_mutex):
     global parar
@@ -13,6 +15,8 @@ def tarefa(pwm_led, terminar_mutex, parar_mutex):
     val = 0
     print('Iniciando Tarefa')
     pwm_led.start(val)
+    # A tarefa de 'tarefa' eh continuamente mudar a intensidade do led
+    # mas se ele tem que parar, ele deve desligar o LED, e nao avancar na intensidade que estava antes
     while True:
         with terminar_mutex:
             if terminar:
@@ -33,6 +37,8 @@ def verificar_proximidade(sensor, terminar_mutex, parar_mutex):
     min_dist = 0.15
     ja_parou = False
     print('Iniciando Verificacao')
+    # Verifica se o sensor de proximidade gerou uma distancia abaixa de min_dist, e se sim
+    # indica para tarefa pausar
     while True:  
         with terminar_mutex:
             if terminar:
@@ -77,7 +83,8 @@ if __name__ == '__main__':
             pass
     except KeyboardInterrupt:
         print('Desligando Aplicacao')
-    
+
+    # Indica para as threads pararem sua execucao
     with terminar_mutex:
         terminar = True
 

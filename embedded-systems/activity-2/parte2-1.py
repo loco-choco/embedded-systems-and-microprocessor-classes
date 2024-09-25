@@ -10,13 +10,14 @@ GPIO.setup(led_pwm_pin, GPIO.OUT)
 pwm_led = GPIO.PWM(led_pwm_pin, 100)
 print('Ligando Led com PWM')
 
-val = 25
+val = 0
 pwm_led.start(val)
+# Varia o duty cycle do PWM para o LED em loop
 try:
     while True:
-        #val = (val + 25/1000) % 100
+        val = (val + 25/1000) % 100
         pwm_led.ChangeDutyCycle(val)
-        #sleep(0.5/1000)
+        sleep(0.5/1000)
 except KeyboardInterrupt:
     print()
     GPIO.cleanup()

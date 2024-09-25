@@ -6,7 +6,7 @@ from time import sleep
 if len(sys.argv) < 2:
     print('Sem argumentos suficientes')
     exit(-1)
-
+# Verificar se entrada eh correta
 if not sys.argv[1].isdigit():
     print(f'Entrada {sys.argv[1]} nao eh um numero maior ou igual a 0')
     exit(-1)
@@ -19,6 +19,7 @@ pin = 16
 GPIO.setup(pin, GPIO.OUT)
 
 GPIO.output(pin, GPIO.LOW)
+# Faz a contagem regressiva, parando e saindo caso receba um CTRL + C
 try:
     while countdown > 0:
         print(f'\rLigando o LEd em {int(countdown/60)}:{countdown%60}             ', end='')
@@ -31,6 +32,7 @@ except KeyboardInterrupt:
 print('\nLed ligado!')
 GPIO.output(pin, GPIO.HIGH)
 
+# Esperar CTRL+C para sair
 try:
     while True:
         pass
