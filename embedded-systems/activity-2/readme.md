@@ -1,5 +1,6 @@
 # Pratica 3
-
+**Ivan Roberto Wagner Pancheniak Filho - 12624224**
+**Leonardo Rodrigues de Sousa - 10716380**
 ## Parte 1
 
 Nessa parte foi elaborado um programa em python para fazer o acionamento de um LED
