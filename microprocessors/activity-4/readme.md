@@ -1,5 +1,7 @@
 # Atividade Semanal 4
 
+**Ivan Roberto Wagner Pancheniak Filho - 12624224**
+
 ## Parte 1
 Codigo em Assembly da [primeira parte](1.asm).
 ```asm
@@ -71,6 +73,7 @@ end
 **Justifique sua resposta.**
 
 Simulando no EdSim51, o tempo gasto em cada linha de instrução foi os na tabela a seguir:
+
 |-------------------|------|
 | mov A, #12h       | 1 us |
 | mov A, #00h       | 1 us |
@@ -82,6 +85,7 @@ Simulando no EdSim51, o tempo gasto em cada linha de instrução foi os na tabel
 | mov R1, 50h       | 2 us |
 | mov A, @R1        | 1 us |
 | mov DPTR, #9A5Bh  | 2 us |
+
 Disso, determinamos que, pelo clock do processador ser de 1 us, 
 a quantidade de ciclos de maquina gasta foi de 16us.
 
