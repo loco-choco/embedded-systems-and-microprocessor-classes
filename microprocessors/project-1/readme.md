@@ -1,14 +1,14 @@
 # Projeto 1 - Cronômetro Digital usando Assembly e 8051
 
-Nesse projeto de Assembly de 8051 foi desenvolvido um contador com velocidade variavel,
-expondo o numero atual em um _display_ de 7 segmentos, e usando interrupcoes do temporizador
+Nesse projeto de Assembly de 8051 foi desenvolvido um contador com velocidade variável,
+expondo o número atual em um _display_ de 7 segmentos, e usando interrupções do temporizador
 interno para manter a contagem em um tempo constante.
 
-O programa esta no arquivo [timer.asm](timer.asm), e ele tem o seguinte fluxo de codigo:
+O programa está no arquivo [timer.asm](timer.asm), e ele tem o seguinte fluxo de código:
 
 ``` mermaid
 flowchart TD
-    A@{ shape: flip-tri, label: "Reset" } --> B("contador = 0
+    A(Reset) --> B("contador = 0
     ligado = 0
     modo = 0
     numero = 0")
@@ -24,8 +24,8 @@ flowchart TD
     modo = 0
     SW1_anterior = SW1")
     ToggleLento --> SW0
-    Interrupt@{ shape: flip-tri, label: "Timer0
-    Interrupt" } --> Ligado("Ve valor de ligado")
+    Interrupt("Timer0
+    Interrupt") --> Ligado("Ve valor de ligado")
     Ligado --> |1|Contador(contador++)
     Ligado --> |0|ResetTimer
     Contador --> Modo(Ve valor de modo)
@@ -37,10 +37,12 @@ flowchart TD
     Rapido --> |Sim|Numero
     Numero --> Atualiza(Atualiza display com numero)
     Atualiza --> ResetTimer(Reseta Timer0 com 8600h)
-    ResetTimer --> RTI@{ shape: tri, label: "RETI" }
+    ResetTimer --> RETI(RETI)
 ```
 
-Sendo que cada registrador tem as seguintes funcoes:
+Sendo que cada registrador tem as seguintes funções:
+
+|    |              |
 |----|--------------|
 | r0 | numero       |
 | r1 | contador     |
@@ -48,5 +50,3 @@ Sendo que cada registrador tem as seguintes funcoes:
 | r3 | modo         |
 | r4 | SW0_anterior |
 | r5 | SW1_anterior |
-
-
