@@ -1,5 +1,7 @@
 # Projeto 1 - Cronômetro Digital usando Assembly e 8051
 
+**Ivan Roberto Wagner Pancheniak Filho - 12624224**
+
 Nesse projeto de Assembly de 8051 foi desenvolvido um contador com velocidade variável,
 expondo o número atual em um _display_ de 7 segmentos, e usando interrupções do temporizador
 interno para manter a contagem em um tempo constante.
