@@ -17,15 +17,15 @@ flowchart TD
     B --> C(Habilita interupcao do timer0 e seta timer de 8600h - 1/32s)
     C -->SW0{Ve valor de SW0}
     SW0 -->|Igual a SW0_anterior|SW1
-    SW0 -->|Diferente que SW0_anterior|ToggleRapido("ligado = 1
-    modo = 1
-    SW0_anterior = SW0")
-    ToggleRapido --> SW1{Ve valor de SW1}
-    SW1 -->|Igual a SW1_anterior|SW0
-    SW1 -->|Diferente que SW1_anterior|ToggleLento("ligado = 1
+    SW0 -->|Diferente que SW0_anterior|ToggleLento("ligado = 1
     modo = 0
+    SW0_anterior = SW0")
+    ToggleLento --> SW1{Ve valor de SW1}
+    SW1 -->|Igual a SW1_anterior|SW0
+    SW1 -->|Diferente que SW1_anterior|ToggleRapido("ligado = 1
+    modo = 1
     SW1_anterior = SW1")
-    ToggleLento --> SW0
+    ToggleRapido --> SW0
     Interrupt("Timer0
     Interrupt") --> Ligado("Ve valor de ligado")
     Ligado --> |1|Contador(contador++)
