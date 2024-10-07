@@ -60,5 +60,5 @@ Sendo que cada registrador tem as seguintes funções:
 ## Video Explicativo do Funcionamento do Programa
 
 
-![Video](https://youtu.be/CPFiauVPb5c)
+[![Video](https://img.youtube.com/vi/CPFiauVPb5c/0.jpg)](https://www.youtube.com/watch?v=CPFiauVPb5c)
 
