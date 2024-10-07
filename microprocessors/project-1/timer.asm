@@ -27,20 +27,20 @@ main:
   ; Pegar o estado atual das chaves sw0 e sw1
   jb p2.0, verifica_sw1_inicio
   mov r4, #01h
-  verifica_sw1_inicio:
-    jb p2.1, habilitar_interrupt_timer_0
-    mov r5, #01h
+verifica_sw1_inicio:
+  jb p2.1, habilitar_interrupt_timer_0
+  mov r5, #01h
     ; Habilitar interrupts do timer 0
     ; e setar ele com um timer de 8600h (1/32 s)
-  habilitar_interrupt_timer_0:
-    mov tmod, #01h
-    mov tl0, #00h
-    mov th0, #86h
-    setb tr0 ; habilita timer 0
-    setb ea ; habilita interrupts
-    setb et0 ; habilita interrupt por timer 0
-    ; Loop para ligar e alterar modo do timer
-    ; dependendo das chaves SW0 (p2.0) e SW1 (p2.1)
+habilitar_interrupt_timer_0:
+  mov tmod, #01h
+  mov tl0, #00h
+  mov th0, #86h
+  setb tr0 ; habilita timer 0
+  setb ea ; habilita interrupts
+  setb et0 ; habilita interrupt por timer 0
+  ; Loop para ligar e alterar modo do timer
+  ; dependendo das chaves SW0 (p2.0) e SW1 (p2.1)
   input_loop:
       ; se sw0 mudar de status, habilitar modo rapido
       ; se sw1 mudar de status, habilitar modo lento
@@ -93,7 +93,7 @@ timer0_int_body:
     jc atualiza_display ; Se maior que 9, zerar r0
   acima_de_9:
     mov r0, #0
-  atualiza_display:
+  atualiza_display: ; Pega a representacao do numero na memoria de programa e coloca no registrados do display
     mov dptr, #numeros
     mov a, r0
     movc a, @a+dptr
