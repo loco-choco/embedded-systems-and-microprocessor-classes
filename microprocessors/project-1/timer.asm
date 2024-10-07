@@ -65,13 +65,10 @@ incrementa_numero:
 acima_de_9:
   mov r0, #0
 atualiza_display:
-  mov A, numeros
-  add A, r0
-  mov b, r0
-  mov r0, A
-  mov p1, @r0 ;TODO consertar ele enviando errado os bits
-  mov r0, b
-  
+  mov dptr, #numeros
+  mov a, r0
+  movc a, @a+dptr
+  mov p1, a
 resetar_timer:
   mov tl0, #00h
   mov th0, #86h
