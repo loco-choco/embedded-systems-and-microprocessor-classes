@@ -52,3 +52,13 @@ Sendo que cada registrador tem as seguintes funções:
 | r3 | modo         |
 | r4 | SW0_anterior |
 | r5 | SW1_anterior |
+
+## Diagrama das conexoes com o processador
+
+![Diagrama](diagram.png)
+
+## Video Explicativo do Funcionamento do Programa
+
+
+![Video](https://youtu.be/CPFiauVPb5c)
+
