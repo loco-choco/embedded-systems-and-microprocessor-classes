@@ -208,5 +208,10 @@ preferir), faça um breve resumo (listagem) sobre os principais recursos e perif
 disponíveis nesta placa, listando suas principais funcionalidades para prototipagem em
 sistemas embarcados.**
 
+Dentre os principais recursos da plataforma de desenvolvimento EasyPIC v7 temos:
 
-
+- _Switches_ e Leds integrados para cada porta
+- Potenciometros e pinos para sinais analogicos
+- Varios _slots_ para diferentes tipos de PIC
+- Programador integrado
+- Alimentacao integrada
