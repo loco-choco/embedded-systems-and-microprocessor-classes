@@ -1,0 +1,9 @@
+[Unit]
+Description= Blink LED
+After=multi-user.target
+[Service]
+ExecStart=/home/sel/lab-embarcados/pratica-4/led-blink.sh
+ExecStop=/home/sel/lab-embarcados/pratica-4/led-blink-stop.sh
+user=SEL
+[Install]
+WantedBy=multi-user.target

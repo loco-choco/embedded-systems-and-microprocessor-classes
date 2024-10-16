@@ -1,0 +1,8 @@
+[Unit]
+Description= Blink Python LED
+After=multi-user.target
+[Service]
+ExecStart=/home/sel/work-lab-embarcados/bin/python /home/sel/lab-embarcados/pratica-4/led-blink.py
+user=SEL
+[Install]
+WantedBy=multi-user.target
