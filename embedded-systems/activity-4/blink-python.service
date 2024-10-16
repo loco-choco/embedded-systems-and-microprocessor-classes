@@ -1,8 +1,19 @@
 [Unit]
 Description= Blink Python LED
+
+# De acordo com
+# https://unix.stackexchange.com/questions/404667/systemd-service-what-is-multi-user-target
+# multi-user.target eh quando os shells dos usuarios sao levantados, mas antes de aplicacoes
+# graficas, ou seja, ou mais cedo possivel que podemos ter nosso servico rodar com python
 After=multi-user.target
+
 [Service]
+# Nossa aplicacao, pelo python ser de um virtual env, ele tem esse path especifico
 ExecStart=/home/sel/work-lab-embarcados/bin/python /home/sel/lab-embarcados/pratica-4/led-blink.py
+# Script que usa o pino para avisar que o pino acabou, e desaloca o recurso
+ExecStop=/home/sel/lab-embarcados/pratica-4/led-blink-stop.sh
+# Por esses arquivos estarem no usuario SEL, esse servico eh dele
 user=SEL
+
 [Install]
 WantedBy=multi-user.target
