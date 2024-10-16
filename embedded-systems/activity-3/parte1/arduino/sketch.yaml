@@ -1,0 +1,9 @@
+profiles:
+  arduino:
+    fqbn: arduino:avr:uno
+    platforms:
+      - platform: arduino:avr (1.8.4)
+
+default_profile: arduino
+#default_port: /dev/ttyACM0
+#default_protocol: serial
