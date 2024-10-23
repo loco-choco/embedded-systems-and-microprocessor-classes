@@ -1,1 +1,0 @@
-/nix/store/6zr22cvda693zzrkq8rfy6wh2d54891a-esp-idf-v5.3.1/components/mbedtls/mbedtls/library/version_features.c
