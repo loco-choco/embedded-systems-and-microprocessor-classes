@@ -3,13 +3,14 @@
 #include "freertos/task.h"
 #include <stdio.h>
 
-#define LED_PIN 13
+#define LED_PIN 2
 
 void app_main(void) {
-  esp_rom_gpio_pad_select_gpio(LED_PIN);
+  // esp_rom_gpio_pad_select_gpio(LED_PIN);
+  gpio_reset_pin(LED_PIN);
   gpio_set_direction(LED_PIN, GPIO_MODE_OUTPUT);
-  int ON = 0;
-  while (true) {
+  uint8_t ON = 0;
+  while (1) {
     ON = !ON;
     gpio_set_level(LED_PIN, ON);
     vTaskDelay(1000 / portTICK_PERIOD_MS);
