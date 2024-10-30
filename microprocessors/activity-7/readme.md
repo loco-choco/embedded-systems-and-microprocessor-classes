@@ -164,7 +164,12 @@ void main(void) {
 ### Implemente no SimulIDE um programa para acionar uma a saída (representada por um LED que irá piscar)
 **sempre que for sinalizado um evento por interrupções externas**
 
+Usando o PICSimLab, foi simulado o codigo em uma configuracao de placa semelhante a seguir.
 ![4](4.png)
+
+Algo que se presenciou foi o efeito de bouncer do botao, disparando varios eventos para um mesmo apertar de botao, algo que em um codigo de verdade deveria ser resolvido com um codigo de debouncer.
+
+![picsim-bounce.png](picsim-bounce.png)
 
 Codigo presente em [4/4.c](4/4.c).
 
@@ -174,10 +179,10 @@ Codigo presente em [4/4.c](4/4.c).
 
 #pragma config XINST = OFF
 
-#define LED_LAT LATCbits.LATC0
-#define LED_TRIS TRISCbits.TRISC0
+#define LED_LAT LATDbits.LATD0
+#define LED_TRIS TRISDbits.TRISD0
 
-void timer_isr(void) __interrupt(1) __using(1) {
+void timer_isr(void) __interrupt(1) {
   if (INTCON3bits.INT2IF == 1) {
     LED_LAT = ~LED_LAT;
     INTCON3bits.INT2IF = 0;
@@ -186,15 +191,14 @@ void timer_isr(void) __interrupt(1) __using(1) {
 }
 
 void main(void) {
-  ADCON1 |= 0XF; // Pinos digitais
+  ADCON1 = 0XF; // Pinos digitais
 
   LED_TRIS = 0; // LED saida
   LED_LAT = 0;  // LED desligado
   INTCON2bits.RBPU = 0;
-  // Porta B liga em 0, tem que ligar os resistores de pullup na porta
-
-  INTCONbits.GIEH = 1;     // Interrupt de alta prioridade
-  RCONbits.IPEN = 1;       // Habilita ter niveis de prioridade
+  // Porta B liga em 0, resistores de pullup habilitados
+  INTCONbits.PEIE = 1;     // Habilita Interrupts dos perifericos
+  INTCONbits.GIE = 1;      // Interrupt de alta prioridade
   INTCON3bits.INT2IF = 0;  // Zerar a flag caso ela nao esteja ja zerada
   INTCON3bits.INT2IE = 1;  // Habilita a interrupcao 2
   INTCON2bits.INTEDG2 = 0; // Habilita ao presionar a tecla
@@ -208,6 +212,10 @@ void main(void) {
 ### Implemente no SimulIDE programa para acender um LED (conectado à um dos pinos do PORTD) após 5 eventos
 **utilizando o Timer1(TMR1) no modo contador (modo 16 bits)**
 
+No PICSIMLab, adicionando botoes para poder fazer os eventos no pino C0, foi feito a montagem na figura a seguir:
+![5-picsimlab.png](5-picsimlab.png)
+
+O qual equivale a montagem no SimlIDE:
 ![5](5.png)
 
 Codigo presente em [5/5.c](5/5.c).
@@ -223,7 +231,7 @@ Codigo presente em [5/5.c](5/5.c).
 
 const int COUNT_TO = 0xFF - 4;
 
-void timer_isr(void) __interrupt(1) __using(1) {
+void timer_isr(void) __interrupt(1) {
   if (PIR1bits.TMR1IF == 1) {
     LED_LAT = ~LED_LAT;
     TMR1H = 0xFF;

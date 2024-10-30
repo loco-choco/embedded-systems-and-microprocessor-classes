@@ -8,7 +8,7 @@
 
 const int COUNT_TO = 0xFF - 4;
 
-void timer_isr(void) __interrupt(1) __using(1) {
+void timer_isr(void) __interrupt(1) {
   if (PIR1bits.TMR1IF == 1) {
     LED_LAT = ~LED_LAT;
     TMR1H = 0xFF;
