@@ -10,19 +10,23 @@ Nessa atividade, foi utilizado o compilador aberto sdcc (versao 4.4.0) com os co
 ### Implemente no SimulIDE, um programa para piscar um LED a cada 1 segundo
 **, utilizando o temporizador Timer0 (TMR0) do PIC18F4550.**
 
+Utilizando o simulator PicSimLab (0.9.2), foi feito a simulacao usando a placa a seguir
+![1](1-picsim.png)
+Que corresponde a seguinte montagem no SimulIDE, trocando a porta D0 por C0.
 ![1](1.png)
 
 Codigo presente em [1/1.c](1/1.c).
 ```C#include <delay.h>
+#include <delay.h>
 #include <pic18fregs.h>
 
 #pragma config XINST = OFF
 
-#define LED_LAT LATCbits.LATC0
-#define LED_TRIS TRISCbits.TRISC0
+#define LED_LAT LATDbits.LATD0
+#define LED_TRIS TRISDbits.TRISD0
 
 void main(void) {
-  ADCON1 |= 0XF; // Pinos digitais
+  // ADCON1 |= 0XF; // Pinos digitais
 
   LED_TRIS = 0; // LED saida
   LED_LAT = 0;  // LED desligado
@@ -45,7 +49,7 @@ void main(void) {
   const int TIMER_HIGHER = 0xE1;
   TMR0L = TIMER_LOWER;
   TMR0H = TIMER_HIGHER;
-  LED_LAT = 0;
+  T0CONbits.TMR0ON = 1;
   while (1) {
     if (INTCONbits.TMR0IF == 1) {
       LED_LAT = ~LED_LAT;
@@ -61,8 +65,8 @@ void main(void) {
 ### Implemente no SimulIDE um programa para acionar uma a saída (representada por um LED que irá piscar)
 **a cada intervalo de tempo correspondente a contagem de tempo máxima do Timer3 (TMR3)**
 
-![1](1.png)
-
+Com a mesma configuracao de simulacao anterior, o seguinte codigo faz a contagem de tempo maxima, com C0 no lugar de C0 
+para SimulIDE.
 Codigo presente em [2/2.c](2/2.c).
 ```C
 #include <delay.h>
@@ -70,8 +74,8 @@ Codigo presente em [2/2.c](2/2.c).
 
 #pragma config XINST = OFF
 
-#define LED_LAT LATCbits.LATC0
-#define LED_TRIS TRISCbits.TRISC0
+#define LED_LAT LATCbits.LATD0
+#define LED_TRIS TRISCbits.TRISD0
 
 void main(void) {
   ADCON1 |= 0XF; // Pinos digitais
@@ -111,8 +115,7 @@ void main(void) {
 ### Implemente no SimulIDE um programa para acionar uma a saída (representada por um LED que irá piscar)
 **a cada intervalo de tempo correspondente a contagem de tempo máxima do Timer2 (TMR2)**
 
-![1](1.png)
-
+Igual a questao anterior, o tempo maximo de Timer2 foi obeservado com o seguinte codigo.
 Codigo presente em [3/3.c](3/3.c).
 
 ```C
@@ -121,8 +124,8 @@ Codigo presente em [3/3.c](3/3.c).
 
 #pragma config XINST = OFF
 
-#define LED_LAT LATCbits.LATC0
-#define LED_TRIS TRISCbits.TRISC0
+#define LED_LAT LATDbits.LATD0
+#define LED_TRIS TRISDbits.TRISD0
 
 void main(void) {
   ADCON1 |= 0XF; // Pinos digitais

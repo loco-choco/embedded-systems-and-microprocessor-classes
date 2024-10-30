@@ -3,8 +3,8 @@
 
 #pragma config XINST = OFF
 
-#define LED_LAT LATCbits.LATC0
-#define LED_TRIS TRISCbits.TRISC0
+#define LED_LAT LATDbits.LATD0
+#define LED_TRIS TRISDbits.TRISD0
 
 void main(void) {
   // ADCON1 |= 0XF; // Pinos digitais
