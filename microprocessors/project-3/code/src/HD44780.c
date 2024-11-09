@@ -1,7 +1,8 @@
-#include "HD44780.h"
-#include <delay.h>
-#include <pic18fregs.h>
+#include "HD44780.h"    // Protótipo das funcoes implementadas por esse código
+#include <delay.h>      // Rotinas de delay para a pic
+#include <pic18fregs.h> // Pinos da pic
 
+// Faz o delay necessário após uma escrita de comandos de 8bits
 void delay_for_busy_flag_8_bits(void) {
   // Temos que permitir com que o LCD escreva nos pinos
   // pois ele coloca informacao de seu estado interno
@@ -21,12 +22,15 @@ void delay_for_busy_flag_8_bits(void) {
   LCD_D7_TRIS = 0;
 }
 
+// Faz o delay necessário após uma escrita de comandos de 4bits
 void delay_for_busy_flag_4_bits(void) {
   // Emula o delay e o ciclo de clock de receber no modo 4 bits
   delay_for_busy_flag_8_bits();
   delay_for_busy_flag_8_bits();
 }
 
+// Envia um comando de 8bits mas apenas com 4 ports (apenas os 4 primeiros bits
+// de command são enviados pelos ports de dados mais significativos)
 void send_command_to_lcd_8_incomplete_bits(int rs, int command) {
   LCD_EN = 1;
   LCD_RS = rs;
@@ -39,6 +43,7 @@ void send_command_to_lcd_8_incomplete_bits(int rs, int command) {
   delay1ktcy(2);
 }
 
+// Envia um comando no formato de 4bits
 void send_command_to_lcd_4_bits(int rs, int command) {
   LCD_EN = 1;
   LCD_RS = rs;
@@ -59,7 +64,8 @@ void send_command_to_lcd_4_bits(int rs, int command) {
   LCD_EN = 0;
   delay1ktcy(2);
 }
-
+// Configura as portas do LCD e envia os primeiros comandos para ligar e
+// habilitar a escrita desejada no LCD
 void config_lcd(void) {
   int busy = 0;
   // Seta ports de controle e dados como saida
@@ -75,8 +81,6 @@ void config_lcd(void) {
   // Setando modo 4 bits
   send_command_to_lcd_8_incomplete_bits(0, 0b0010);
   delay_for_busy_flag_4_bits();
-  // busy = check_for_busy_flag_4_bits(); -- o correto seria verificar a flag de
-  // ocupado, mas o LCD está num perpetuo modo de WRITE
 
   send_command_to_lcd_4_bits(0, 0b00100011); // Seleciona linha 1 e fonte 5x8
   delay_for_busy_flag_4_bits();
@@ -88,20 +92,21 @@ void config_lcd(void) {
   send_command_to_lcd_4_bits(0, 0b00000110);
   delay_for_busy_flag_4_bits();
 }
-
+// Envia um comando de escrever um caracter no display
 void print_char_lcd(int c) { send_command_to_lcd_4_bits(1, c); }
+// Move o cursor do LCD para o inicio
 void go_to_start_lcd(void) {
   send_command_to_lcd_4_bits(0, 0b00000010); // Move o cursor para o inicio
   delay_for_busy_flag_4_bits();
 }
-
+// Escreve a primeira casa de um numero
 void print_number_1unit(int num) { print_char_lcd('0' + num % 10); }
-
+// Escreve as 2 primeiras casas de um numero
 void print_number_2units(int num) {
   print_char_lcd('0' + (num / 10) % 10);
   print_char_lcd('0' + num % 10);
 }
-
+// Escreve as 4 primeiras casas de um numero
 void print_number_4units(int num) {
   print_char_lcd('0' + (num / 1000) % 10);
   print_char_lcd('0' + (num / 100) % 10);

@@ -23,6 +23,7 @@
 #error "LCD_D4 pin isn't defined!"
 #endif
 
+// Rotinas da nossa biblioteca para interfacerar com o LCD HD44780
 void delay_for_busy_flag_8_bits(void);
 void delay_for_busy_flag_4_bits(void);
 
