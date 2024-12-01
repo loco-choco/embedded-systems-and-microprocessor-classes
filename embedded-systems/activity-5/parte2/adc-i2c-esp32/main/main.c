@@ -32,7 +32,11 @@ static void i2c_slave_task(void *arg) {
 
       ESP_ERROR_CHECK(adc_oneshot_read(adc_handle, ADC_CHANNEL_9, &adc_val));
       // Envia para quem pediu
-      ESP_ERROR_CHECK(i2c_slave_transmit(handle, &adc_val, sizeof(int), 1000));
+      unsigned char adc_val_in_bytes[2];
+      adc_val_in_bytes[0] = adc_val % 256;
+      adc_val_in_bytes[1] = (adc_val >> 8) % 256;
+      ESP_ERROR_CHECK(i2c_slave_transmit(handle, adc_val_in_bytes,
+                                         sizeof(unsigned char) * 2, 1000));
     }
   }
   vTaskDelete(NULL);
