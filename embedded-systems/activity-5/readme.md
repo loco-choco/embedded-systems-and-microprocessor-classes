@@ -26,5 +26,14 @@ E também foi feito a montagem, com o resultado presente nas figuras a seguir.
 ![parte1-foto1](parte1-foto1.png)
 ![parte1-foto2](parte1-foto2.png)
 
+## Parte 2
+
+### ESP32
+
+### Kernel Module
+
+```sh
+    make -C $(nix-build -E '(import <nixpkgs> {}).linuxPackages_zen.kernel.dev' --no-out-link)/lib/modules/*/build M=$(pwd) modules
+```
 
 
