@@ -40,6 +40,11 @@ seguintes fotos.
 
 ![parte2-esp32-foto](parte2-esp32-foto.png)
 
+Para verificar que a ESP realmente está conectando com a rasp, conecte os pinos do I2C e rode o comando `i2cdetect -y 1`, se estiver
+funcionando, é para aparecer um _58_, que é o endereco da ESP32.
+
+![parte2-esp32-i2cdetect](parte2-esp32-i2cdetect.png)
+
 ### Kernel Module
 
 #### Compilar e carregar o Kernel Module
