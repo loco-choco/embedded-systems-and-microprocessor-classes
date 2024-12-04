@@ -48,10 +48,14 @@ Para compilar o Kernel Module na pasta `parte2/i2c-device-driver-rasp` é primei
 que a máquina está rodando, depois, é apenas necessário rodar os seguintes comandos dentro da pasta mencionada:
 
 ```sh
+    # Para baixar o Linux Header na Raspyberry bookworm
+    # sudo apt install linux-headers-rpi-v8
+    
     make -C /lib/modules/<versao do kernel>/build M=$(pwd) modules # Compila o Kernel Module
     # Se voce está em uma distribuicao NixOS, voce apenas precisa rodar o seguinte comando, idependentemente de ter os Kernel Headers,
     # apenas trocando linuxPackages_zen.kernel pela versao do kernel que voce está usando
     # make -C $(nix-build -E '(import <nixpkgs> {}).linuxPackages_zen.kernel.dev' --no-out-link)/lib/modules/*/build M=$(pwd) modules
+   
     sudo insmod i2c-adc-driver.ko # Carrega o Kernel Module
     ls -lah /dev/i2c_adc_device   # Validar que o Kernel Module criou um arquivo para ser interfaceado
     cat /dev/i2c_adc_device       # Ler o valor do ADC da ESP32
