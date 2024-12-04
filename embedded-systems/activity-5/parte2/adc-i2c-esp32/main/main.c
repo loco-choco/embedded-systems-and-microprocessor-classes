@@ -75,7 +75,7 @@ void app_main(void) {
       .on_recv_done = i2c_slave_request_cb,
   };
   ESP_ERROR_CHECK(i2c_slave_register_event_callbacks(slave_handle, &cbs,
-                                                     &i2c_transmit_warn));
+                                                     i2c_transmit_warn));
   // Cria o ADC
   printf("Criando ADC...\n");
   adc_oneshot_unit_init_cfg_t adc_config = {
