@@ -6,9 +6,9 @@
 Nesse projeto final foi criado um sistema pelo qual uma ESP32 disponibiliza seu ADC para programas em uma Raspberry 
 por meio de um _device driver_, comunicando por I2C.
 
-### ESP32
+## ESP32
 
-#### Programar a Placa
+### Programar a Placa
 
 Para programar a ESP32, é necessário ter o SDK padrão da espressif, versão v5.3.1.
 Em sistemas com _Nix_, ele pode ser obtido pelo seguinte comando, o qual vai criar um shell com todas as ferramentas necessárias:
@@ -29,7 +29,7 @@ idf.py menuconfig # Isso irá abrir o menuconfig do projeto,
                   # caso a placa seja esp32-s2
 idf.py -p /dev/ttyACM0 build flash monitor # Troque /dev/ttyACM0 pela porta em que se encontra a placa
 ```
-#### Detalhes da Implementacão
+### Detalhes da Implementacão
 
 Nesse código, foi utilizado a versão 1.0 do driver de I2C _slave_, podendo então não ser compatível com as próximas versões do SDK 
 (veja [aqui](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/i2c.html#i2c-clock-configuration) para
@@ -45,9 +45,9 @@ funcionando, é para aparecer um _58_, que é o endereco da ESP32.
 
 ![parte2-esp32-i2cdetect](parte2-esp32-i2cdetect.png)
 
-### Kernel Module
+## Kernel Module
 
-#### Compilar e carregar o Kernel Module
+### Compilar e carregar o Kernel Module
 
 Para compilar o Kernel Module na pasta `parte2/i2c-device-driver-rasp` é primeiro necessário ter os _Kernel Headers_ da versão do Kernel
 que a máquina está rodando, depois, é apenas necessário rodar os seguintes comandos dentro da pasta mencionada:
@@ -76,3 +76,17 @@ o caso na figura).
 
 Mesmo sendo um _Kernel Module_, nem tudo é feito _"do zero"_. Há o driver de I2C no Kernel do Linux, do qual o nosso faz uma requesicão 
 de um dispositivo I2C, e quando ele encontro, nos é passado um _handler_ que permite que ele seja escrito e lido.
+
+## Montagem
+
+Para fazer a montagem são necessários 3 jumpers femea-femea e 1 jumper femea-macho.
+Com eles, faca as seguintes conexoes:
+
+RASP | ESP32
+GPIO2 - 1
+GPIO3 - 2
+GND - GND
+
+Com o jumper femea-macho no pino 21 da ESP, esse será o seu probe do ADC.
+
+![parte2-montagem](parte2-montagem.jpg)
