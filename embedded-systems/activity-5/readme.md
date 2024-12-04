@@ -64,10 +64,32 @@ seguintes fotos.
 
 ![parte2-esp32-saida](parte2-esp32-saida.png)
 
+![parte2-esp32-foto](parte2-esp32-foto.png)
+
 ### Kernel Module
 
+#### Compilar e carregar o Kernel Module
+
+Para compilar o Kernel Module na pasta `parte2/i2c-device-driver-rasp` é primeiro necessário ter os _Kernel Headers_ da versão do Kernel
+que a máquina está rodando, depois, é apenas necessário rodar os seguintes comandos dentro da pasta mencionada:
+
 ```sh
-    make -C $(nix-build -E '(import <nixpkgs> {}).linuxPackages_zen.kernel.dev' --no-out-link)/lib/modules/*/build M=$(pwd) modules
+    make -C /lib/modules/<versao do kernel>/build M=$(pwd) modules # Compila o Kernel Module
+    # Se voce está em uma distribuicao NixOS, voce apenas precisa rodar o seguinte comando, idependentemente de ter os Kernel Headers,
+    # apenas trocando linuxPackages_zen.kernel pela versao do kernel que voce está usando
+    # make -C $(nix-build -E '(import <nixpkgs> {}).linuxPackages_zen.kernel.dev' --no-out-link)/lib/modules/*/build M=$(pwd) modules
+    sudo insmod i2c-adc-driver.ko # Carrega o Kernel Module
+    ls -lah /dev/i2c_adc_device   # Validar que o Kernel Module criou um arquivo para ser interfaceado
+    cat /dev/i2c_adc_device       # Ler o valor do ADC da ESP32
+    sudo rmsmod i2c-adc-driver.ko # Remove o Kernel Module
 ```
 
+Tendo dmseg rodando ao lado, é esperado ter uma resposta parecida com a seguinte (cat falha caso a ESP32 não esteja conectada, como é
+o caso na figura).
 
+![parte2-driver-saida](parte2-driver-saida.png)
+
+#### Detalhes da Implementacão
+
+Mesmo sendo um _Kernel Module_, nem tudo é feito _"do zero"_. Há o driver de I2C no Kernel do Linux, do qual o nosso faz uma requesicão 
+de um dispositivo I2C, e quando ele encontro, nos é passado um _handler_ que permite que ele seja escrito e lido.
