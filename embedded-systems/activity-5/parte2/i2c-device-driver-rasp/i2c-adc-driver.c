@@ -9,6 +9,7 @@
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/slab.h>
+#include <linux/string.h>
 #include <linux/uaccess.h> //copy_to/from_user()
 
 #define I2C_BUS_AVAILABLE (1) // I2C Bus da Rasp
@@ -92,13 +93,17 @@ static ssize_t i2c_adc_read(struct file *filp, char __user *buf, size_t len,
     return 0;
   }
   pr_info("I2C Read : Done!");
+  char str[40];
+  int total_val = adc_val[0] + (adc_val[1] << 8);
+  sprintf(str, "%d\n", total_val);
+
   // Passando o Dado adquirido para o usuário
-  if (copy_to_user(buf, &adc_val, sizeof(unsigned char) * 2)) {
+  if (copy_to_user(buf, &adc_val, sizeof(char) * strlen(str))) {
     pr_err("Data Read : Err!\n");
     return 0;
   }
   pr_info("Data Read : Done!\n");
-  return sizeof(unsigned char) * 2;
+  return sizeof(char) * strlen(str);
 }
 
 // Init do Módulo
