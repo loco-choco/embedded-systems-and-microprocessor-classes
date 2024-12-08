@@ -92,11 +92,12 @@ de um dispositivo I2C, e quando ele encontro, nos é passado um _handler_ que pe
 Para fazer a montagem são necessários 3 jumpers femea-femea e 1 jumper femea-macho.
 Com eles, faca as seguintes conexoes:
 
-RASP | ESP32
-GPIO2 - 1
-GPIO3 - 2
-GND - GND
-3V3 - 3V3
+| RASP | ESP32 |
+|------|-------|
+|GPIO2 | 1     |  
+|GPIO3 | 2     | 
+|GND   | GND   |  
+|3V3   | 3V3   | 
 
 Com o jumper femea-macho no pino 21 da ESP, esse será o seu probe do ADC.
 ![parte2-connections](pictures/parte2-connections.png)
