@@ -19,10 +19,10 @@ controlar o acesso.
 O código foi simulado no PICSimLab com uma pláca idêntica a presente no laboratório, sendo que esse workspace está 
 presente no arquivo [workspace.pzw](parte1/workspace.pzw).
 
-![parte1](parte1.png)
+![parte1](pictures/parte1.png)
 
 E também foi feito a montagem, com o resultado presente nas figuras a seguir.
 
-![parte1-foto1](parte1-foto1.png)
-![parte1-foto2](parte1-foto2.png)
+![parte1-foto1](pictures/parte1-foto1.png)
+![parte1-foto2](pictures/parte1-foto2.png)
 

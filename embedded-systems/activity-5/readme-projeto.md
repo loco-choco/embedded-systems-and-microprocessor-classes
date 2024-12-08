@@ -1,10 +1,20 @@
-# Projeto Final
+# Device Driver de ADC com ESP32
 **Ivan Roberto Wagner Pancheniak Filho - 12624224**
 
 **Leonardo Rodrigues de Sousa - 10716380**
 
 Nesse projeto final foi criado um sistema pelo qual uma ESP32 disponibiliza seu ADC para programas em uma Raspberry 
 por meio de um _device driver_, comunicando por I2C.
+
+## Motivação
+
+Esse projeto é motivado pelas possibiliades que ter o ADC de uma ESP32 por um _device driver_ dá a outros projetos que podem ser feitos
+em uma Raspberry. Ao se ter o hardware e as conexões da ESP32 abstraidas por um driver, o desenvolvedor não precisa se preocupar com todos
+os tratamentos de exeções que podem surgir em uma comunicação I2C, precisando apenas ler um arquivo em `/dev` para acessar dados da
+leitura do ADC.
+Outros benefícios que surgem ao se ter esse recurso disponibilizado como um arquivo pelo SO, é que tratamentos de _deadlock_, e de quem tem
+autoridade sobre o ADC, ficam abstraidos pelo _file handler_, simplificando o tratamento em programas com multiplas _threads_ sobre uma
+API única de tratamento de arquivos.
 
 ## ESP32
 
@@ -32,18 +42,18 @@ idf.py -p /dev/ttyACM0 build flash monitor # Troque /dev/ttyACM0 pela porta em q
 ### Detalhes da Implementacão
 
 Nesse código, foi utilizado a versão 1.0 do driver de I2C _slave_, podendo então não ser compatível com as próximas versões do SDK 
-(veja [aqui](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/i2c.html#i2c-clock-configuration) para
+(veja [aqui](pictures/https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/i2c.html#i2c-clock-configuration) para
 detalhes). Além disso, com a opcão 'Enable I2C debug log' ligada, é possível ver o driver de I2C em acão, como pode ser visto nas 
 seguintes fotos.
 
-![parte2-esp32-saida](parte2-esp32-saida.png)
+![parte2-esp32-saida](pictures/parte2-esp32-saida.png)
 
-![parte2-esp32-foto](parte2-esp32-foto.png)
+![parte2-esp32-foto](pictures/parte2-esp32-foto.png)
 
 Para verificar que a ESP realmente está conectando com a rasp, conecte os pinos do I2C e rode o comando `i2cdetect -y 1`, se estiver
 funcionando, é para aparecer um _58_, que é o endereco da ESP32.
 
-![parte2-esp32-i2cdetect](parte2-esp32-i2cdetect.png)
+![parte2-esp32-i2cdetect](pictures/parte2-esp32-i2cdetect.png)
 
 ## Kernel Module
 
@@ -70,7 +80,7 @@ que a máquina está rodando, depois, é apenas necessário rodar os seguintes c
 Tendo dmseg rodando ao lado, é esperado ter uma resposta parecida com a seguinte (cat falha caso a ESP32 não esteja conectada, como é
 o caso na figura).
 
-![parte2-driver-saida](parte2-driver-saida.png)
+![parte2-driver-saida](pictures/parte2-driver-saida.png)
 
 #### Detalhes da Implementacão
 
@@ -86,7 +96,8 @@ RASP | ESP32
 GPIO2 - 1
 GPIO3 - 2
 GND - GND
+3V3 - 3V3
 
 Com o jumper femea-macho no pino 21 da ESP, esse será o seu probe do ADC.
-
-![parte2-montagem](parte2-montagem.jpg)
+![parte2-connections](pictures/parte2-connections.png)
+![parte2-montagem](pictures/parte2-montagem.jpg)
