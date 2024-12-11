@@ -60,7 +60,8 @@ void app_main(void) {
     // B
     ledc_set_duty(LEDC_MODE, B_CHANNEL, b);
     ledc_update_duty(LEDC_MODE, B_CHANNEL); // Atualiza o valor do PWM
-    printf("Inc: %d, (R=%d, G=%d, B=%d)\n", incremento, r, g, b);
+    printf("Inc: %d, (R=%f, G=%f, B=%f)\n", incremento, r / 255.0, g / 255.0,
+           b / 255.0);
     r = (r + 2 * incremento) % 255;
     g = (g + incremento) % 255;
     b = (b + 3 * incremento) % 255;
